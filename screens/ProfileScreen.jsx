@@ -1,5 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native'
+import { View, StyleSheet, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import Container from "react-native-dialog/src/Container";
+import DialogButton from "react-native-dialog/src/Button";
+import Input from "react-native-dialog/src/Input";
 import Settings from '../assets/profile/settings.png'
 import Carcassone from '../assets/profile/carcassone.jpg'
 import Uno from '../assets/profile/uno.png'
@@ -8,6 +11,7 @@ import GoldCup from '../assets/profile/gold_cup.png'
 import SilverCup from '../assets/profile/silver_cup.png'
 import BronzeCup from '../assets/profile/bronze_cup.png'
 import Star from '../assets/profile/star.png'
+import { AntDesign } from '@expo/vector-icons'
 
 var faker = require('faker');
 
@@ -27,21 +31,40 @@ export class ProfileScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rotate: false,
+            settings: false,
+            password: '',
+            confirmedPassword: ''
         };
-        this.rotatingDone = this.rotatingDone.bind(this);
+        this.settingsDone = this.settingsDone.bind(this);
     }
 
-    rotatingDone() {
+    settingsDone() {
         this.setState(function(state) {
             return {
-                rotate: false
+                settings: !this.state.settings
             };
         });
     }
+
     render() {
         return (
-            <View style={styles.mainContainer}>
+            <ScrollView style={styles.mainContainer}>
+                <Container visible={this.state.settings}>
+                    <Text style = {[styles.normalText,{marginHorizontal: 20, fontSize: 10}]}>New Password</Text>
+                    <Input secureTextEntry={true} style={styles.input} onChange={(evt) => {this.setState({password: evt.nativeEvent.text})}}/>
+                    <Text style = {[styles.normalText,{marginHorizontal: 20, fontSize: 10}]}>Confirm New Password</Text>
+                    <Input secureTextEntry={true} style={styles.input} onChange={(evt) => {this.setState({confirmedPassword: evt.nativeEvent.text})}}/>
+                    <View style = {{marginHorizontal: 20, flexDirection: 'row', alignItems: 'space-between', justifyContent: 'space-between'}}>
+                        <DialogButton style={styles.normalText} label="Cancel"  onPress={(event) => {this.setState({settings: false})}}/>
+                        <TouchableOpacity onPress={(event) => {
+                            if(this.state.password !== this.state.confirmedPassword) console.warn("passwords don\'t match!");
+                            else if(this.state.password === '') console.warn("password could not be empty!");
+                            else this.setState({settings: false})
+                        }}>
+                            <AntDesign name="arrowright" size={40} color={'#F7F7F7'} style = {{backgroundColor: '#F5A315', height: 40, width: 40}}/>
+                        </TouchableOpacity>
+                    </View>
+                </Container>
                 <View style={styles.topBar}/>
                 <View style={styles.viewContainer}>
                     <Image source={{uri: photoUri}} style={styles.profilePhoto}/>
@@ -90,30 +113,30 @@ export class ProfileScreen extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity onPress={(event) => {
-                        this.setState({ rotate: !this.state.rotate })
+                        this.setState({ settings: true });
                     }}>
-                        <Image source={Settings} style={this.state.rotate?styles.settingsPhotoRotated:styles.settingsPhoto}/>
+                        <Image source={Settings} style={this.state.settings?styles.settingsPhotoRotated:styles.settingsPhoto}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonBar}>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={(event) => {Alert.alert("Your friends subscreen")}}>
                             <Text style={styles.buttonText}>FRIENDS</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={(event) => {Alert.alert("Your sessions subscreen")}}>
                             <Text style={styles.buttonText}>SESSIONS</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.buttonStyle}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={(event) => {Alert.alert("Your games subscreen")}}>
                             <Text style={styles.buttonText}>GAMES</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.recentSessions}>
-                    <Text style={[styles.normalText, {fontSize: 18}]}>Recent Sessions</Text>
+                    <Text style={[styles.normalText, {fontSize: 18, margin: 20}]}>Recent Sessions</Text>
                     <View style={styles.session}>
                         <Image source={Carcassone} style={styles.gamePicture}/>
                         <Image source={GoldCup} style={styles.smallIcon}/>
@@ -223,13 +246,25 @@ export class ProfileScreen extends React.Component {
                             </View>
                         </View>
                     </View>
-                </View>
-            </View>
+                </View>{/*Because scrollview cuts off bottom*/}
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+  input : {
+      borderColor: '#30323b',
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderRadius: 30,
+      height: '20%',
+      width: '100%',
+      color: '#30323b',
+      fontSize: 13,
+  },
   buttonStyle : {
       width: '33%',
       borderColor: '#30323b',
@@ -237,7 +272,7 @@ const styles = StyleSheet.create({
       borderLeftWidth: 1,
       borderRightWidth: 1,
       borderRadius: 10,
-      alignItems: 'center'
+      alignItems: 'center',
   },
   smallIcon : {
       width: 20,
@@ -264,7 +299,8 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start'
   },
   recentSessions : {
-      flex: 2.5,
+      marginBottom: 80,
+      flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center'
@@ -274,9 +310,11 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 22,
       textDecorationLine: 'underline',
+      //fontStyle: 'Lato' TODO
   },
   buttonBar : {
-      flex: 0.2,
+      marginTop: 10,
+      flex: 1,
       flexDirection: 'row',
   },
   smallPhoto : {
@@ -288,6 +326,7 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection: 'row',
       width: 150,
+      alignItems: 'center',
   },
   friendResults : {
       flex: 1,
@@ -307,7 +346,8 @@ const styles = StyleSheet.create({
       color: '#30323b',
       fontWeight: 'bold',
       height: 100,
-      width: 100
+      width: 100,
+      //fontStyle: 'Lato' TODO
   },
   stats : {
       flex: 1,
@@ -334,8 +374,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#FEFEFE',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
   },
   profilePhoto: {
       width: 170,
@@ -351,5 +389,6 @@ const styles = StyleSheet.create({
       color: '#30323b',
       fontWeight: 'bold',
       fontSize: 14,
+      //fontStyle: 'Lato' TODO
   }
 });
