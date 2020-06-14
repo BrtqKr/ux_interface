@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import Settings from '../assets/profile/settings.png'
 import Carcassone from '../assets/profile/carcassone.jpg'
 import Uno from '../assets/profile/uno.png'
@@ -15,195 +15,218 @@ const login = faker.internet.userName().substring(0,12).toLowerCase();
 const name = (faker.name.firstName() + " " + faker.name.lastName()).substring(0,20);
 const mail = login.substring(0,4).toLowerCase()+"@gmail.com";
 let photoUri = faker.image.avatar();
-let settingsPressed = false;
+let mostSessions = [faker.image.avatar(), faker.image.avatar(), faker.image.avatar()];
+let bestSessions = [faker.image.avatar(), mostSessions[2], faker.image.avatar()];
+let sessions = [[faker.image.avatar(),bestSessions[1],faker.image.avatar()],
+                [bestSessions[1],faker.image.avatar(),bestSessions[0],mostSessions[0],faker.image.avatar()],
+                [faker.image.avatar(),faker.image.avatar(),mostSessions[2]],
+                [bestSessions[2], faker.image.avatar()],
+                [mostSessions[0]]];
 
-export default ProfileScreen = () => {
-    return (
-        <View style = {styles.mainContainer}>
-            <View style = {styles.topBar}/>
-            <View style = {styles.viewContainer}>
-                <Image source={{uri: photoUri}} style = {styles.profilePhoto} />
-                <View style = {styles.informationContainer}>
-                    <Text style = {styles.normalText}>
-                        Login: {"\t"+login+"\n"}
-                        Name:{"\t"+name+"\n"}
-                        E-mail:{"\t"+mail+"\n"}
-                    </Text>
-                    <View style = {{borderBottomColor: '30323b', borderBottomWidth: 4}}/>
-                    <View style = {styles.stats}>
-                        <View style = {styles.statContainer}>
-                            <Text style = {styles.rotatedText}> Most Sessions </Text>
-                            <View style = {styles.friendResults}>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 32 </Text>
-                                </View>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 28 </Text>
-                                </View>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 27</Text>
+export class ProfileScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            rotate: false,
+        };
+        this.rotatingDone = this.rotatingDone.bind(this);
+    }
+
+    rotatingDone() {
+        this.setState(function(state) {
+            return {
+                rotate: false
+            };
+        });
+    }
+    render() {
+        return (
+            <View style={styles.mainContainer}>
+                <View style={styles.topBar}/>
+                <View style={styles.viewContainer}>
+                    <Image source={{uri: photoUri}} style={styles.profilePhoto}/>
+                    <View style={styles.informationContainer}>
+                        <Text style={styles.normalText}>
+                            Login: {"\t" + login + "\n"}
+                            Name:{"\t" + name + "\n"}
+                            E-mail:{"\t" + mail + "\n"}
+                        </Text>
+                        <View style={{borderBottomColor: '30323b', borderBottomWidth: 4}}/>
+                        <View style={styles.stats}>
+                            <View style={styles.statContainer}>
+                                <Text style={styles.rotatedText}> Most Sessions </Text>
+                                <View style={styles.friendResults}>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: mostSessions[0]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 32 </Text>
+                                    </View>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: mostSessions[1]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 28 </Text>
+                                    </View>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: mostSessions[2]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 27</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View style = {styles.statContainer}>
-                            <Text style = {styles.rotatedText}> Best Sessions </Text>
-                            <View style = {styles.friendResults}>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 4.1/5 </Text>
-                                </View>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 3.8/5 </Text>
-                                </View>
-                                <View style = {styles.friendResult}>
-                                    <Image source={{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                    <Text style = {styles.normalText}> 3.7/5 </Text>
+                            <View style={styles.statContainer}>
+                                <Text style={styles.rotatedText}> Best Sessions </Text>
+                                <View style={styles.friendResults}>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: bestSessions[0]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 4.1/5 </Text>
+                                    </View>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: bestSessions[1]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 3.8/5 </Text>
+                                    </View>
+                                    <View style={styles.friendResult}>
+                                        <Image source={{uri: bestSessions[2]}} style={styles.smallPhoto}/>
+                                        <Text style={styles.normalText}> 3.7/5 </Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
                     </View>
-                </View>
-                <TouchableOpacity onPress={(event) => {settingsPressed = !settingsPressed; console.log(event)}}>
-                    <Image source={Settings} style = {settingsPressed?styles.settingsPhoto:styles.settingsPhotoRotated}/>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.buttonBar}>
-                <View style = {styles.buttonStyle}>
-                    <TouchableOpacity>
-                        <Text style = {styles.buttonText}>FRIENDS</Text>
+                    <TouchableOpacity onPress={(event) => {
+                        this.setState({ rotate: !this.state.rotate })
+                    }}>
+                        <Image source={Settings} style={this.state.rotate?styles.settingsPhotoRotated:styles.settingsPhoto}/>
                     </TouchableOpacity>
                 </View>
-                <View style = {styles.buttonStyle}>
-                    <TouchableOpacity>
-                        <Text style = {styles.buttonText}>SESSIONS</Text>
-                    </TouchableOpacity>
+                <View style={styles.buttonBar}>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText}>FRIENDS</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText}>SESSIONS</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText}>GAMES</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style = {styles.buttonStyle}>
-                    <TouchableOpacity>
-                        <Text style = {styles.buttonText}>GAMES</Text>
-                    </TouchableOpacity>
+                <View style={styles.recentSessions}>
+                    <Text style={[styles.normalText, {fontSize: 18}]}>Recent Sessions</Text>
+                    <View style={styles.session}>
+                        <Image source={Carcassone} style={styles.gamePicture}/>
+                        <Image source={GoldCup} style={styles.smallIcon}/>
+                        <View style={styles.sessionInfo}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={[styles.normalText, {margin: 5}]}>Carcassone</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin: 5}}>
+                                    <Image source={{uri: sessions[0][0]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[0][1]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[0][2]}} style={styles.smallPhoto}/>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin: 5}}>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                </View>
+                                <Text style={[styles.normalText, {margin: 5, fontStyle: 'italic'}]}>Yesterday</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.session}>
+                        <Image source={Uno} style={styles.gamePicture}/>
+                        <Image source={GoldCup} style={styles.smallIcon}/>
+                        <View style={styles.sessionInfo}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={[styles.normalText, {margin: 5}]}>Uno</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin: 5}}>
+                                    <Image source={{uri: sessions[1][0]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[1][1]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[1][2]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[1][3]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[1][4]}} style={styles.smallPhoto}/>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin: 5}}>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                </View>
+                                <Text style={[styles.normalText, {margin: 5, fontStyle: 'italic'}]}>2 days ago</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.session}>
+                        <Image source={Azul} style={styles.gamePicture}/>
+                        <Image style={styles.smallIcon}/>
+                        <View style={styles.sessionInfo}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={[styles.normalText, {margin: 5}]}>Azul</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin: 5}}>
+                                    <Image source={{uri: sessions[2][0]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[2][1]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[2][2]}} style={styles.smallPhoto}/>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin: 5}}>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                </View>
+                                <Text style={[styles.normalText, {margin: 5, fontStyle: 'italic'}]}>5 days ago</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.session}>
+                        <Image source={Azul} style={styles.gamePicture}/>
+                        <Image source={BronzeCup} style={styles.smallIcon}/>
+                        <View style={styles.sessionInfo}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={[styles.normalText, {margin: 5}]}>Azul</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin: 5}}>
+                                    <Image source={{uri: sessions[3][0]}} style={styles.smallPhoto}/>
+                                    <Image source={{uri: sessions[3][1]}} style={styles.smallPhoto}/>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin: 5}}>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                </View>
+                                <Text style={[styles.normalText, {margin: 5, fontStyle: 'italic'}]}>8 days ago</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.session}>
+                        <Image source={Carcassone} style={styles.gamePicture}/>
+                        <Image source={SilverCup} style={styles.smallIcon}/>
+                        <View style={styles.sessionInfo}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <Text style={[styles.normalText, {margin: 5}]}>Carcassone</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin: 5}}>
+                                    <Image source={{uri: sessions[4][0]}} style={styles.smallPhoto}/>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin: 5}}>
+                                    <Image source={Star} style={styles.smallIcon}/>
+                                </View>
+                                <Text style={[styles.normalText, {margin: 5, fontStyle: 'italic'}]}>14 days ago</Text>
+                            </View>
+                        </View>
+                    </View>
                 </View>
             </View>
-            <View style = {styles.recentSessions}>
-                <Text style = {[styles.normalText, {fontSize: 18}]}>Recent Sessions</Text>
-                <View style = {styles.session}>
-                    <Image source = {Carcassone} style = {styles.gamePicture}/>
-                    <Image source = {GoldCup} style = {styles.smallIcon}/>
-                    <View style = {styles.sessionInfo}>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <Text style = {[styles.normalText, {margin:5}]}>Carcassone</Text>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin:5}}>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                            </View>
-                        </View>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin:5}}>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                            </View>
-                            <Text style = {[styles.normalText, {margin:5, fontStyle: 'italic'}]}>Yesterday</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style = {styles.session}>
-                    <Image source = {Uno} style = {styles.gamePicture}/>
-                    <Image source = {GoldCup} style = {styles.smallIcon}/>
-                    <View style = {styles.sessionInfo}>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <Text style = {[styles.normalText, {margin:5}]}>Uno</Text>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin:5}}>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                            </View>
-                        </View>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin:5}}>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                            </View>
-                            <Text style = {[styles.normalText, {margin:5, fontStyle: 'italic'}]}>2 days ago</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style = {styles.session}>
-                    <Image source = {Azul} style = {styles.gamePicture}/>
-                    <Image style = {styles.smallIcon}/>
-                    <View style = {styles.sessionInfo}>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <Text style = {[styles.normalText, {margin:5}]}>Azul</Text>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin:5}}>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                            </View>
-                        </View>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin:5}}>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                            </View>
-                            <Text style = {[styles.normalText, {margin:5, fontStyle: 'italic'}]}>5 days ago</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style = {styles.session}>
-                    <Image source = {Azul} style = {styles.gamePicture}/>
-                    <Image source = {BronzeCup} style = {styles.smallIcon}/>
-                    <View style = {styles.sessionInfo}>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <Text style = {[styles.normalText, {margin:5}]}>Azul</Text>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin:5}}>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                            </View>
-                        </View>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin:5}}>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                            </View>
-                            <Text style = {[styles.normalText, {margin:5, fontStyle: 'italic'}]}>8 days ago</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style = {styles.session}>
-                    <Image source = {Carcassone} style = {styles.gamePicture}/>
-                    <Image source = {SilverCup} style = {styles.smallIcon}/>
-                    <View style = {styles.sessionInfo}>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <Text style = {[styles.normalText, {margin:5}]}>Carcassone</Text>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', margin:5}}>
-                                <Image source = {{uri: faker.image.avatar()}} style = {styles.smallPhoto}/>
-                            </View>
-                        </View>
-                        <View style = {{flex:1, flexDirection: 'row'}}>
-                            <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', margin:5}}>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                                <Image source = {Star} style = {styles.smallIcon}/>
-                            </View>
-                            <Text style = {[styles.normalText, {margin:5, fontStyle: 'italic'}]}>14 days ago</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>
-    );
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -305,7 +328,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column'
   },
   topBar: {
-      height: 30
+      height: '5%'
   },
   mainContainer: {
       flex: 1,

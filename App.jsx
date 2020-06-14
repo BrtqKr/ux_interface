@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import HomeScreen from './screens/HomeScreen'
-import ProfileScreen from './screens/ProfileScreen'
+import {ProfileScreen} from './screens/ProfileScreen'
 import SearchScreen from './screens/SearchScreen'
 import StatsScreen from './screens/StatsScreen'
 
