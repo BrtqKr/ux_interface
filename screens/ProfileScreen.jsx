@@ -1,5 +1,13 @@
-import React from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import React from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  ScrollView
+} from "react-native";
 import Container from "react-native-dialog/src/Container";
 import DialogButton from "react-native-dialog/src/Button";
 import Input from "react-native-dialog/src/Input";
@@ -15,19 +23,42 @@ import { AntDesign } from '@expo/vector-icons'
 import * as Font from "expo-font"
 import { AppLoading } from "expo";
 
-var faker = require('faker');
+var faker = require("faker");
 
-const login = faker.internet.userName().substring(0,12).toLowerCase();
-const name = (faker.name.firstName() + " " + faker.name.lastName()).substring(0,20);
-const mail = login.substring(0,4).toLowerCase()+"@gmail.com";
+const login = faker.internet
+  .userName()
+  .substring(0, 12)
+  .toLowerCase();
+const name = (faker.name.firstName() + " " + faker.name.lastName()).substring(
+  0,
+  20
+);
+const mail = login.substring(0, 4).toLowerCase() + "@gmail.com";
 let photoUri = faker.image.avatar();
-let mostSessions = [faker.image.avatar(), faker.image.avatar(), faker.image.avatar()];
-let bestSessions = [faker.image.avatar(), mostSessions[2], faker.image.avatar()];
-let sessions = [[faker.image.avatar(),bestSessions[1],faker.image.avatar()],
-                [bestSessions[1],faker.image.avatar(),bestSessions[0],mostSessions[0],faker.image.avatar()],
-                [faker.image.avatar(),faker.image.avatar(),mostSessions[2]],
-                [bestSessions[2], faker.image.avatar()],
-                [mostSessions[0]]];
+let mostSessions = [
+  faker.image.avatar(),
+  faker.image.avatar(),
+  faker.image.avatar()
+];
+let bestSessions = [
+  faker.image.avatar(),
+  mostSessions[2],
+  faker.image.avatar()
+];
+let sessions = [
+  [faker.image.avatar(), bestSessions[1], faker.image.avatar()],
+  [
+    bestSessions[1],
+    faker.image.avatar(),
+    bestSessions[0],
+    mostSessions[0],
+    faker.image.avatar()
+  ],
+  [faker.image.avatar(), faker.image.avatar(), mostSessions[2]],
+  [bestSessions[2], faker.image.avatar()],
+  [mostSessions[0]]
+];
+
 
 export class ProfileScreen extends React.Component {
     constructor(props) {
@@ -130,22 +161,43 @@ export class ProfileScreen extends React.Component {
                         <Image source={Settings} style={this.state.settings?styles.settingsPhotoRotated:styles.settingsPhoto}/>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.buttonBar}>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={(event) => {Alert.alert("Your friends subscreen")}}>
-                            <Text style={styles.buttonText}>FRIENDS</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={(event) => {Alert.alert("Your sessions subscreen")}}>
-                            <Text style={styles.buttonText}>SESSIONS</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.buttonStyle}>
-                        <TouchableOpacity onPress={(event) => {Alert.alert("Your games subscreen")}}>
-                            <Text style={styles.buttonText}>GAMES</Text>
-                        </TouchableOpacity>
-                    </View>
+                <Text
+                  style={[
+                    styles.normalText,
+                    { margin: 5, fontStyle: "italic" }
+                  ]}
+                >
+                  2 days ago
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.session}>
+            <Image source={Azul} style={styles.gamePicture} />
+            <Image style={styles.smallIcon} />
+            <View style={styles.sessionInfo}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <Text style={[styles.normalText, { margin: 5 }]}>Azul</Text>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    margin: 5
+                  }}
+                >
+                  <Image
+                    source={{ uri: sessions[2][0] }}
+                    style={styles.smallPhoto}
+                  />
+                  <Image
+                    source={{ uri: sessions[2][1] }}
+                    style={styles.smallPhoto}
+                  />
+                  <Image
+                    source={{ uri: sessions[2][2] }}
+                    style={styles.smallPhoto}
+                  />
                 </View>
                 <View style={styles.recentSessions}>
                     <Text style={[styles.normalText, {fontSize: 18, margin: 20}]}>Recent Sessions</Text>
@@ -267,58 +319,59 @@ export class ProfileScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  input : {
-      borderColor: '#30323b',
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      borderLeftWidth: 1,
-      borderRightWidth: 1,
-      borderRadius: 30,
-      height: '20%',
-      width: '100%',
-      color: '#30323b',
-      fontSize: 13,
+  input: {
+    borderColor: "#30323b",
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderRadius: 30,
+    height: "20%",
+    width: "100%",
+    color: "#30323b",
+    fontSize: 13
   },
-  buttonStyle : {
-      width: '33%',
-      borderColor: '#30323b',
-      borderBottomWidth: 1,
-      borderLeftWidth: 1,
-      borderRightWidth: 1,
-      borderRadius: 10,
-      alignItems: 'center',
+  buttonStyle: {
+    width: "33%",
+    borderColor: "#30323b",
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderRadius: 10,
+    alignItems: "center"
   },
-  smallIcon : {
-      width: 20,
-      height: 20,
-      margin: 5
+  smallIcon: {
+    width: 20,
+    height: 20,
+    margin: 5
   },
-  sessionInfo : {
-      borderBottomColor: 'rgb(48,50,59)',
-      borderBottomWidth: 4,
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'space-between'
+  sessionInfo: {
+    borderBottomColor: "rgb(48,50,59)",
+    borderBottomWidth: 4,
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
-  gamePicture : {
-      height: 70,
-      width: 60,
-      margin: 5
+  gamePicture: {
+    height: 70,
+    width: 60,
+    margin: 5
   },
-  session : {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start'
+  session: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
   },
-  recentSessions : {
-      marginBottom: 80,
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
+  recentSessions: {
+    marginBottom: 80,
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   },
+
   buttonText : {
       color: '#30323b',
       fontWeight: 'bold',
@@ -326,34 +379,35 @@ const styles = StyleSheet.create({
       textDecorationLine: 'underline',
       fontFamily: 'Lato'
   },
-  buttonBar : {
-      marginTop: 10,
-      flex: 1,
-      flexDirection: 'row',
+  buttonBar: {
+    marginTop: 10,
+    flex: 1,
+    flexDirection: "row"
   },
-  smallPhoto : {
-      borderRadius: 30,
-      width: 30,
-      height: 30,
+  smallPhoto: {
+    borderRadius: 30,
+    width: 30,
+    height: 30
   },
-  friendResult : {
-      flex: 1,
-      flexDirection: 'row',
-      width: 150,
-      alignItems: 'center',
+  friendResult: {
+    flex: 1,
+    flexDirection: "row",
+    width: 150,
+    alignItems: "center"
   },
-  friendResults : {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: 110,
-      width: 100
+  friendResults: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    height: 110,
+    width: 100
   },
-  statContainer : {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'flex-start',
+  statContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start"
   },
+
   rotatedText : {
       transform: [{ rotate: '270deg'}],
       fontSize : 12,
@@ -363,43 +417,44 @@ const styles = StyleSheet.create({
       width: 100,
       fontFamily: 'Lato'
   },
-  stats : {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'flex-start',
+  stats: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start"
   },
-  settingsPhotoRotated : {
-      transform: [{rotate: '30deg'}],
-      width: 35,
-      height: 35
+  settingsPhotoRotated: {
+    transform: [{ rotate: "30deg" }],
+    width: 35,
+    height: 35
   },
-  settingsPhoto : {
-      width: 35,
-      height: 35
+  settingsPhoto: {
+    width: 35,
+    height: 35
   },
   informationContainer: {
-      flex: 1,
-      flexDirection: 'column'
+    flex: 1,
+    flexDirection: "column"
   },
   topBar: {
-      height: '5%'
+    height: "5%"
   },
   mainContainer: {
-      flex: 1,
-      backgroundColor: '#FEFEFE',
-      flexDirection: 'column',
+    flex: 1,
+    backgroundColor: "#FEFEFE",
+    flexDirection: "column"
   },
   profilePhoto: {
-      width: 170,
-      height: 190,
-      margin : 5,
-      borderRadius: 50
+    width: 170,
+    height: 190,
+    margin: 5,
+    borderRadius: 50
   },
   viewContainer: {
-      flex: 1,
-      flexDirection: 'row',
+    flex: 1,
+    flexDirection: "row"
   },
   normalText: {
+
       color: '#30323b',
       fontWeight: 'bold',
       fontSize: 14,
