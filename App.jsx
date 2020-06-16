@@ -69,81 +69,94 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { enableScreens } from "react-native-screens";
+import { createSwitchNavigator, createAppContainer } from "react-navigation";
 
 enableScreens();
 
 function TabStack() {
-  const Tab = createBottomTabNavigator();
+  const Stack = createNativeStackNavigator();
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ tabBarVisible: false }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{ tabBarVisible: false }}
-      />
-      <Tab.Screen
-        name="Stats"
-        component={StatsScreen}
-        options={{ tabBarVisible: false }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ tabBarVisible: false }}
-      />
-
-      <Tab.Screen
-        name="NavBar"
-        component={NavBar}
-        options={{ tabBarVisible: false }}
-      />
-      <Tab.Screen
-        name="StaticNav"
-        component={StaticTabbar}
-        options={{ tabBarVisible: false }}
-      />
-    </Tab.Navigator>
-  );
-}
-function RootStack() {
-  const Root = createNativeStackNavigator();
-  return (
-    // <NavigationContainer>
-    //   <Stack.Navigator headerShown={false}>
-    //     <Stack.Screen></Stack.Screen>
-    //   </Stack.Navigator>
-
-    // <View style={styles.container}>
-    //   <NavBar />
-    // </View>
-    // </NavigationContainer>
     <NavigationContainer>
-      <Root.Navigator>
-        <Root.Screen
-          name="First"
-          component={TabStack}
-          options={{ headerShown: false }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ tabBarVisible: false }}
         />
-      </Root.Navigator>
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{ tabBarVisible: false }}
+        />
+        <Stack.Screen
+          name="Stats"
+          component={StatsScreen}
+          options={{ tabBarVisible: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ tabBarVisible: false }}
+        />
+
+        <Stack.Screen
+          name="NavBar"
+          component={NavBar}
+          options={{ tabBarVisible: false }}
+        />
+        <Stack.Screen
+          name="StaticNav"
+          component={StaticTabbar}
+          options={{ tabBarVisible: false }}
+        />
+      </Stack.Navigator>
       <View style={styles.container}>
         <NavBar />
       </View>
     </NavigationContainer>
   );
 }
+// function RootStack() {
+//   const Root = createNativeStackNavigator();
+//   return (
+//     // <NavigationContainer>
+//     //   <Stack.Navigator headerShown={false}>
+//     //     <Stack.Screen></Stack.Screen>
+//     //   </Stack.Navigator>
 
-const App = props => {
-  return (
-    <>
-      <RootStack />
-    </>
-  );
-};
+//     // <View style={styles.container}>
+//     //   <NavBar />
+//     // </View>
+//     // </NavigationContainer>
+//     <NavigationContainer>
+//       <Root.Navigator>
+//         <Root.Screen
+//           name="First"
+//           component={TabStack}
+//           options={{ headerShown: false }}
+//         />
+//       </Root.Navigator>
+//       <View style={styles.container}>
+//         <NavBar />
+//       </View>
+//     </NavigationContainer>
+//   );
+// }
+
+const App = createSwitchNavigator({
+  Home: {
+    screen: HomeScreen
+  },
+  Search: {
+    screen: SearchScreen
+  },
+  Stats: {
+    screen: StatsScreen
+  },
+  Profile: {
+    screen: ProfileScreen
+  }
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -155,4 +168,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default createAppContainer(App);

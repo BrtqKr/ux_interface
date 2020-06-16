@@ -66,7 +66,13 @@ export default class AddButton extends React.Component {
     );
 
     return (
-      <View style={{ position: "absolute", alignItems: "center" }}>
+      <View
+        style={{
+          position: "absolute",
+          alignItems: "center",
+          marginBottom: "50%"
+        }}
+      >
         <Animated.View
           style={{
             position: "absolute",
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 36,
     backgroundColor: "#7F58FF",
     position: "absolute",
-    marginTop: -40,
+    marginTop: -50,
     shadowColor: "#7F58FF",
     shadowRadius: 5,
     shadowOffset: { height: 10 },
@@ -127,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 45,
     height: 45,
-    marginTop: 15,
+    marginBottom: 0,
     borderRadius: 24,
     borderWidth: 0,
     backgroundColor: "#f8b93a"

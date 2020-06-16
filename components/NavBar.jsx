@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import * as shape from "d3-shape";
 import { Svg, Path } from "react-native-svg";
-import StaticNavBar from "./StaticNavBar";
+import StaticTabbar from "./StaticNavBar";
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const { width } = Dimensions.get("window");
@@ -91,7 +91,10 @@ class NavBar extends React.PureComponent {
             <Path fill={backgroundColor} {...{ d }} />
           </AnimatedSvg>
           <View style={StyleSheet.absoluteFill}>
-            <StaticNavBar {...{ tabs, value }} />
+            <StaticTabbar
+              {...{ tabs, value }}
+              navigation={this.props.navigation}
+            />
           </View>
         </View>
         <SafeAreaView style={styles.container} />

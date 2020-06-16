@@ -11,10 +11,23 @@ import { Navigator } from "react-navigation-tabs";
 import { withNavigation } from "react-navigation";
 import AddButton from "./AddButton";
 import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
-class StaticTabbar extends React.Component {
+const mapToRoute = tabName => {
+  switch (tabName) {
+    case "home":
+      return "Home";
+    case "search":
+      return "Search";
+    case "pie-chart":
+      return "Stats";
+    case "user":
+      return "Profile";
+  }
+};
+class StaticTabbarClass extends React.Component {
   values = [];
 
   constructor(props) {
@@ -76,42 +89,50 @@ class StaticTabbar extends React.Component {
             extrapolate: "clamp"
           });
           return (
-            // <React.Fragment {...{ key }}>
-            <>
-              <TouchableWithoutFeedback
-                onPress={() => this.props.navigation.navigate("Stats")}
-              >
-                <Animated.View style={[styles.tab, { opacity }]}>
-                  <Icon name={tab.name} color="white" size={25} />
+            <React.Fragment {...{ key }}>
+              <>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    this.props.navigation.navigate(mapToRoute(tab.name));
+                  }}
+                >
+                  <Animated.View style={[styles.tab, { opacity }]}>
+                    <Icon name={tab.name} color="white" size={25} />
+                  </Animated.View>
+                </TouchableWithoutFeedback>
+                <Animated.View
+                  style={{
+                    position: "absolute",
+                    top: -8,
+                    left: tabWidth * key,
+                    width: tabWidth,
+                    height: 64,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    opacity: opacity1,
+                    transform: [{ translateY }]
+                  }}
+                >
+                  <View style={styles.activeIcon}>
+                    <Icon name={tab.name} color="black" size={25} />
+                  </View>
+                  <View>
+                    <AddButton />
+                  </View>
                 </Animated.View>
-              </TouchableWithoutFeedback>
-              <Animated.View
-                style={{
-                  position: "absolute",
-                  top: -8,
-                  left: tabWidth * key,
-                  width: tabWidth,
-                  height: 64,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  opacity: opacity1,
-                  transform: [{ translateY }]
-                }}
-              >
-                {/* <View style={styles.activeIcon}>
-                  <Icon name={tab.name} color="black" size={25} />
-                </View> */}
-                <View>
-                  <AddButton />
-                </View>
-              </Animated.View>
-            </>
-            // </React.Fragment>
+              </>
+            </React.Fragment>
           );
         })}
       </View>
     );
   }
+}
+
+export default function StaticTabbar(props) {
+  // const navigation = useNavigation();
+
+  return <StaticTabbarClass {...props} />;
 }
 
 const styles = StyleSheet.create({
@@ -133,5 +154,3 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
-
-export default StaticTabbar;
