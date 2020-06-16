@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 // import {ScrollView} from "react-native-web";
 import { ScrollView, View, StyleSheet, Text, TextInput, TouchableOpacity, Image} from 'react-native'
 import { CheckBox } from 'react-native'
+
 // import {Button} from "react-native-web";
 // import DatePicker from 'react-native-datepicker'
 import {useFonts} from "@use-expo/font";
@@ -14,6 +15,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 export default AddPlayScreen = () => {
     const [isSelected, setSelection] = useState(false);
     const [isSelected2, setSelection2] = useState(false);
+    const checkedColor = "#F5A315"
+    const uncheckedColor = " #30323B"
     // Font.loadAsync({"Lato": require('../assets/fonts/Lato-Thin.ttf')});
     // Font.loadAsync({"FontAwesome5Free-Solid": require('../assets/fonts/FontAwesome.otf')});
 
@@ -23,6 +26,7 @@ export default AddPlayScreen = () => {
 
     const onPress = () => null;
 
+    let smileColor = ""
     if(fontsLoaded){
     return (
         <ScrollView style={styles.mainContainer}>
@@ -121,6 +125,19 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
 
+            </View>
+            {/*Buzie kolorowe*/}
+            <View style={{flexDirection:'row', flexWrap:'wrap', marginLeft: 120}}>
+
+                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <Text>{" "} </Text>
+                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <Text>{" "} </Text>
+                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <Text>{" "} </Text>
+                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <Text>{" "} </Text>
+                <FontAwesome5 name="smile" size={24} color={checkedColor} />
             </View>
 
             <View style={{align: "center"}}>
