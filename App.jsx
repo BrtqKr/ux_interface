@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import SearchScreen from './screens/SearchScreen'
 import StatsScreen from './screens/StatsScreen'
+import AddPlayScreen from './screens/AddPlayScreen'
 
 import AddButton from "./components/AddButton";
 
@@ -20,8 +21,9 @@ const TabNavigator = createBottomTabNavigator(
       }
     },
     Search: {
-      screen: SearchScreen,
-      navigationOptions: {
+      // screen: SearchScreen,
+        screen: AddPlayScreen,
+        navigationOptions: {
         tabBarIcon: ({ tintColor }) => <FontAwesome5 name="search" size={24} color={tintColor} />
       }
     },
