@@ -10,11 +10,22 @@ import {useFonts} from "@use-expo/font";
 import * as Font from "expo-font"
 import { AppLoading } from "expo";
 import { FontAwesome5 } from "@expo/vector-icons";
+import DatePicker from "react-native-datepicker";
 
 
 export default AddPlayScreen = () => {
+
     const [isSelected, setSelection] = useState(false);
     const [isSelected2, setSelection2] = useState(false);
+
+    //zmienić na onpress
+    let [angry, setAngry] = useState(false);
+    let [frown, setFrown] = useState(false);
+    let [meh, setMeh] = useState(false);
+    let [smiley, setSmiley] = useState(false);
+    let [happy, setHappy] = useState(false);
+    let [date, setDate] = useState("2020-06-16");
+
     const checkedColor = "#F5A315"
     const uncheckedColor = " #30323B"
     // Font.loadAsync({"Lato": require('../assets/fonts/Lato-Thin.ttf')});
@@ -25,6 +36,14 @@ export default AddPlayScreen = () => {
     });
 
     const onPress = () => null;
+    const onPressAngry = () => setAngry(!angry);
+    const onPressFrown = () => setFrown(!frown);
+    const onPressMeh = () => setMeh(!meh);
+    const onPressSmiley = () => setSmiley(!smiley);
+    const onPressHappy = () => setHappy(!happy);
+
+
+    // const onPressAngry = () => setAngry(true);
 
     let smileColor = ""
     if(fontsLoaded){
@@ -81,9 +100,11 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/tracz.jpg')}/>
-
+                <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
+                    Steve
+                </Text>
                 <TextInput
-                    style={{marginLeft: 60, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
+                    style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
                 <TextInput
                     style={{marginLeft: 20, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
@@ -92,9 +113,11 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/miata.jpg')}/>
-
+                <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
+                    Anna
+                </Text>
                 <TextInput
-                    style={{marginLeft: 60, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
+                    style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
                 <TextInput
                     style={{marginLeft: 20, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
@@ -103,9 +126,11 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/kot.jpg')}/>
-
+                <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
+                    Naomi
+                </Text>
                 <TextInput
-                    style={{marginLeft: 60, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
+                    style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
                 <TextInput
                     style={{marginLeft: 20, marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
@@ -126,18 +151,46 @@ export default AddPlayScreen = () => {
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
 
             </View>
+
+            {/*DATE PICKER*/}
+            <View>
+                <DatePicker placeholder="select date"
+                            format="DD-MM-YYYY"
+                            date={date}
+                            onDateChange={(date) => {setState({date: date})}}
+                />
+            </View>
+
+
             {/*Buzie kolorowe*/}
             <View style={{flexDirection:'row', flexWrap:'wrap', marginLeft: 120}}>
 
-                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <TouchableOpacity onPress={ () => setAngry(!angry)}>
+                <FontAwesome5 name="angry" size={30} style={{color: angry? checkedColor : uncheckedColor}} />
+                </TouchableOpacity>
+
                 <Text>{" "} </Text>
-                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+
+                <TouchableOpacity onPress={ () => setFrown(!frown)}>
+                <FontAwesome5 name="frown" size={30} style={{color: frown? checkedColor : uncheckedColor}} />
+                </TouchableOpacity>
+
                 <Text>{" "} </Text>
-                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+
+                <TouchableOpacity onPress={onPressMeh}>
+                <FontAwesome5 name="meh" size={30} style={{color: meh? checkedColor : uncheckedColor}} />
+                </TouchableOpacity>
+
                 <Text>{" "} </Text>
-                <FontAwesome5 name="smile" size={24} color={checkedColor} />
-                <Text>{" "} </Text>
-                <FontAwesome5 name="smile" size={24} color={checkedColor} />
+                <TouchableOpacity onPress={onPressSmiley}>
+                <FontAwesome5 name="smile" size={30} style={{color: smiley? checkedColor : uncheckedColor}} />
+                </TouchableOpacity>
+
+                    <Text>{" "} </Text>
+                <TouchableOpacity onPress={onPressHappy}>
+                <FontAwesome5 name="grin" size={30} color={checkedColor} style={{color: happy? checkedColor : uncheckedColor}}/>
+                </TouchableOpacity>
+
             </View>
 
             <View style={{align: "center"}}>
