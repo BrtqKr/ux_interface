@@ -57,6 +57,7 @@
 // export default createAppContainer(TabNavigator);
 
 import React from "react";
+
 import { StyleSheet, View } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import SearchScreen from "./screens/SearchScreen";
