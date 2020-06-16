@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet, Text, TextInput, Image} from 'react-native'
+import { ScrollView, View, StyleSheet, Text, TextInput, Image, Button, Alert, TouchableOpacity} from 'react-native'
 
 export default HomeScreen = () => {
   return (
@@ -17,47 +17,67 @@ export default HomeScreen = () => {
 			
 		<Text>{"\n"}</Text>
 		
+		<TouchableOpacity onPress={() => Alert.alert('Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie')}>
+		<View  style={{flex: 1, flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}} >
 		
-		<View  style={{flex: 1, flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
-		
-			<View style={{height: 170,width: 340, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,justifyContent: 'center' }}>	
-			<Image style={{height: 100,width: 140,  borderWidth: 1}} source={require('./picture2.jpg')} />
-			<Text> To jest najlepsza gra </Text>
-			</View>
+			<View style={{flexDirection: 'row',height: 170,width: 340, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,justifyContent: 'center' }}>	
 			
+				<View style={{height: 160,width: 150, borderColor: 'orange', borderWidth: 1,justifyContent: 'center' }}>
+					<Image style={{height: 100,width: 140,  borderWidth: 1}} source={require('./picture2.jpg')} />
+					<Text> Bestseller! </Text>
+				</View>
+				
+				<View style={{height: 50,width: 140, marginTop: 15}}>
+					<Text> Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie... </Text>
+					<Text style = {{color: 'blue'}}> Zobacz więcej --> </Text>
+				</View>
+			</View>
+		
 
 		</View>
+		</TouchableOpacity>
 		
-		<View  style={{flex: 1, flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
 		
-			<View style={{alignSelf: 'flex-start', height: 170,width: 170, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,alignItems: 'center',justifyContent: 'center' }}>	
+		<View  style={{ flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
+		
+			<TouchableOpacity onPress={() => Alert.alert('Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie')}>
+			<View style={{height: 170,width: 170, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,alignItems: 'center',justifyContent: 'center' }}>	
 			<Image style={{ height: 100,width: 140,  borderWidth: 1}} source={require('./picture3.jpg')} />
-			<Text> Fajna gra </Text>
+			<Text> Wiem! </Text>
+			<Text style = {{color: 'blue'}}> zobacz więcej --> </Text>
 			</View>
+			</TouchableOpacity>
 			
-			
+			<TouchableOpacity onPress={() => Alert.alert('Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie')}>
 			<View style={{alignSelf: 'flex-start', height: 170,width: 170, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,alignItems: 'center',justifyContent: 'center' }}>	
 			<Image style={{ height: 100,width: 140,  borderWidth: 1}} source={require('./picture.jpg')} />
-			<Text> Niezła gra </Text>
+			<Text> Chińczyk! </Text>
+			<Text style = {{color: 'blue'}}> zobacz więcej --> </Text>
 			</View>
+			</TouchableOpacity>
 		</View>
 		
 		
 		<View  style={{flex: 1, flexDirection: 'row',alignItems: 'center',justifyContent: 'center'}}>
 		
+			<TouchableOpacity onPress={() => Alert.alert('Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie')}>
 			<View style={{alignSelf: 'flex-start', height: 170,width: 170, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,alignItems: 'center',justifyContent: 'center' }}>	
 			<Image style={{ height: 100,width: 140,  borderWidth: 1}} source={require('./picture3.jpg')} />
 			<Text> Fajna gra </Text>
+			<Text style = {{color: 'blue'}}> zobacz więcej --> </Text>
 			</View>
+			</TouchableOpacity>
 			
-			
+			<TouchableOpacity onPress={() => Alert.alert('Gracze, zagrywając swoje karty w odpowiedniej kolejności, tworzą łańcuchy pokarmowe. Muszą walczyć o przetrwanie')}>
 			<View style={{alignSelf: 'flex-start', height: 170,width: 170, borderColor: 'white',backgroundColor: 'orange', borderWidth: 3,alignItems: 'center',justifyContent: 'center' }}>	
 			<Image style={{ height: 100,width: 140,  borderWidth: 1}} source={require('./picture2.jpg')} />
 			<Text> Niezła gra </Text>
+			<Text style = {{color: 'blue'}}> zobacz więcej --> </Text>
 			</View>
+			</TouchableOpacity>
 		</View>
 		
-		
+
 		
 
     </ScrollView>
