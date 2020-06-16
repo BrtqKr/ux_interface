@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet, Text, TextInput, Image, Button, Alert, TouchableOpacity} from 'react-native'
 
+
 export default HomeScreen = () => {
   return (
     <ScrollView style={styles.mainContainer}>
@@ -85,8 +86,7 @@ export default HomeScreen = () => {
 
 	    
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -96,4 +96,5 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
   },
 })
+
 
