@@ -154,12 +154,14 @@ export default AddPlayScreen = () => {
 
             {/*DATE PICKER*/}
             <View>
-                <DatePicker placeholder="select date"
-                            format="DD-MM-YYYY"
+                <DatePicker
+                // placeholder="select date"
+                            // format="DD-MM-YYYY-HH-MM"
+                            mode="datetime"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             date={date1}
-                            onDateChange={(date1) => {setState(date1)}}
+                            onDateChange={(date1) => setDate1(date1)}
                 />
             </View>
 
