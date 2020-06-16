@@ -12,6 +12,8 @@ import SilverCup from '../assets/profile/silver_cup.png'
 import BronzeCup from '../assets/profile/bronze_cup.png'
 import Star from '../assets/profile/star.png'
 import { AntDesign } from '@expo/vector-icons'
+import * as Font from "expo-font"
+import { AppLoading } from "expo";
 
 var faker = require('faker');
 
@@ -33,9 +35,19 @@ export class ProfileScreen extends React.Component {
         this.state = {
             settings: false,
             password: '',
-            confirmedPassword: ''
+            confirmedPassword: '',
+            fontLoaded: false
         };
         this.settingsDone = this.settingsDone.bind(this);
+    }
+
+    async _loadFontsAsync() {
+        await Font.loadAsync({"Lato": require('../assets/fonts/Lato-Thin.ttf')});
+        this.setState({ fontLoaded: true });
+    }
+
+    componentDidMount() {
+        this._loadFontsAsync()
     }
 
     settingsDone() {
@@ -47,8 +59,8 @@ export class ProfileScreen extends React.Component {
     }
 
     render() {
-        return (
-            <ScrollView style={styles.mainContainer}>
+            if(this.state.fontLoaded){
+                return (<ScrollView style={styles.mainContainer}>
                 <Container visible={this.state.settings}>
                     <Text style = {[styles.normalText,{marginHorizontal: 20, fontSize: 10}]}>New Password</Text>
                     <Input secureTextEntry={true} style={styles.input} onChange={(evt) => {this.setState({password: evt.nativeEvent.text})}}/>
@@ -246,9 +258,11 @@ export class ProfileScreen extends React.Component {
                             </View>
                         </View>
                     </View>
-                </View>{/*Because scrollview cuts off bottom*/}
-            </ScrollView>
-        );
+                </View>
+            </ScrollView>);}
+            else{
+                return <AppLoading />;
+            }
     }
 }
 
@@ -310,7 +324,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 22,
       textDecorationLine: 'underline',
-      //fontStyle: 'Lato' TODO
+      fontFamily: 'Lato'
   },
   buttonBar : {
       marginTop: 10,
@@ -347,7 +361,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       height: 100,
       width: 100,
-      //fontStyle: 'Lato' TODO
+      fontFamily: 'Lato'
   },
   stats : {
       flex: 1,
@@ -389,6 +403,6 @@ const styles = StyleSheet.create({
       color: '#30323b',
       fontWeight: 'bold',
       fontSize: 14,
-      //fontStyle: 'Lato' TODO
+      fontFamily: 'Lato'
   }
 });
