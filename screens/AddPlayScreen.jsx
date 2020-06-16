@@ -24,7 +24,7 @@ export default AddPlayScreen = () => {
     let [meh, setMeh] = useState(false);
     let [smiley, setSmiley] = useState(false);
     let [happy, setHappy] = useState(false);
-    let [date, setDate] = useState("2020-06-16");
+    let [date1, setDate1] = useState("2020-06-16");
 
     const checkedColor = "#F5A315"
     const uncheckedColor = " #30323B"
@@ -156,8 +156,10 @@ export default AddPlayScreen = () => {
             <View>
                 <DatePicker placeholder="select date"
                             format="DD-MM-YYYY"
-                            date={date}
-                            onDateChange={(date) => {setState({date: date})}}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            date={date1}
+                            onDateChange={(date1) => {setState(date1)}}
                 />
             </View>
 
