@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
 
 export default HomeScreen = () => {
   return (
@@ -7,14 +7,15 @@ export default HomeScreen = () => {
       <Text>HomeScreen</Text>
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 0,
+    height: "100%"
+  }
+});
