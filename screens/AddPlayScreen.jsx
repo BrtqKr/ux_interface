@@ -100,9 +100,11 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/tracz.jpg')}/>
+                <View style={{width: 100, borderWidth: 2, borderColor:"red"}}>
                 <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
                     Steve
                 </Text>
+                </View>
                 <TextInput
                     style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
@@ -113,9 +115,13 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/miata.jpg')}/>
+                <View style={{width: 100, borderWidth: 2, borderColor:"red"}}>
+
                 <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
                     Anna
                 </Text>
+                </View>
+
                 <TextInput
                     style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
@@ -126,9 +132,12 @@ export default AddPlayScreen = () => {
 
             <View style={{flexDirection:'row', flexWrap:'wrap'}}>
                 <Image style={{height: 45,width: 45, borderWidth: 1, marginRight: "auto", marginLeft: 10}} source={require('../assets/kot.jpg')}/>
+                <View style={{width: 100, borderWidth: 2, borderColor:"red"}}>
                 <Text style={{fontSize: 20, fontWeight:"bold", textAlign: 'center'}}>
                     Naomi
                 </Text>
+                </View>
+
                 <TextInput
                     style={{marginLeft: "auto", marginRight: "auto", height: 45,width: 100, color: 'grey', backgroundColor: 'white', borderWidth: 1 }}
                 />
@@ -153,7 +162,7 @@ export default AddPlayScreen = () => {
             </View>
 
             {/*DATE PICKER*/}
-            <View>
+            <View  style={{flexDirection:'row', flexWrap:'wrap', marginLeft: 10}}>
                 <DatePicker
                 // placeholder="select date"
                             // format="DD-MM-YYYY-HH-MM"
