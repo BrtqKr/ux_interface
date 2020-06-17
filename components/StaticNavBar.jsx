@@ -117,7 +117,7 @@ class StaticTabbarClass extends React.Component {
                     <Icon name={tab.name} color="black" size={25} />
                   </View>
                   <View>
-                    <AddButton />
+                    <AddButton navigation={this.props.navigation} />
                   </View>
                 </Animated.View>
               </>
@@ -130,8 +130,6 @@ class StaticTabbarClass extends React.Component {
 }
 
 export default function StaticTabbar(props) {
-  // const navigation = useNavigation();
-
   return <StaticTabbarClass {...props} />;
 }
 
