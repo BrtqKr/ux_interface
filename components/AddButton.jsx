@@ -80,23 +80,41 @@ export default class AddButton extends React.Component {
             top: thermometerY
           }}
         >
-          <View style={styles.secondaryButton}>
+          <TouchableHighlight
+            onPress={() => {
+              alert("Add Rating Screen");
+              this.handlePress();
+            }}
+            style={styles.secondaryButton}
+          >
             <FontAwesome name="star-half-empty" size={24} color="#FFF" />
-          </View>
+          </TouchableHighlight>
         </Animated.View>
         <Animated.View
           style={{ position: "absolute", left: timeX, top: timeY }}
         >
-          <View style={styles.secondaryButton}>
+          <TouchableHighlight
+            style={styles.secondaryButton}
+            onPress={() => {
+              this.props.navigation.navigate("Play");
+              this.handlePress();
+            }}
+          >
             <FontAwesome5 name="calendar-check" size={24} color="#FFF" />
-          </View>
+          </TouchableHighlight>
         </Animated.View>
         <Animated.View
           style={{ position: "absolute", left: pulseX, top: pulseY }}
         >
-          <View style={styles.secondaryButton}>
+          <TouchableHighlight
+            style={styles.secondaryButton}
+            onPress={() => {
+              alert("Add purchase screen");
+              this.handlePress();
+            }}
+          >
             <FontAwesome5 name="dice" size={24} color="#FFF" />
-          </View>
+          </TouchableHighlight>
         </Animated.View>
         <Animated.View style={[styles.button, sizeStyle]}>
           <AnimatedTouchable onPress={this.handlePress} underlayColor="#f8b93a">
@@ -136,6 +154,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     borderRadius: 24,
     borderWidth: 0,
-    backgroundColor: "#f8b93a"
+    backgroundColor: "#343740"
   }
 });

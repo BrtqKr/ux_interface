@@ -26,7 +26,10 @@ export default HomeScreen = ({ navigation }) => {
             height: 40,
             width: 300,
             borderColor: "blue",
-            borderWidth: 1
+            borderWidth: 1,
+            borderRadius: 15,
+            overflow: "hidden",
+            paddingHorizontal: 20
           }}
         />
 
@@ -53,7 +56,7 @@ export default HomeScreen = ({ navigation }) => {
                 height: 170,
                 width: 340,
                 borderColor: "white",
-                backgroundColor: "orange",
+                backgroundColor: "#f8b93a",
                 borderWidth: 3,
                 justifyContent: "center"
               }}
@@ -62,7 +65,7 @@ export default HomeScreen = ({ navigation }) => {
                 style={{
                   height: 160,
                   width: 150,
-                  borderColor: "orange",
+                  borderColor: "#f8b93a",
                   borderWidth: 1,
                   justifyContent: "center"
                 }}
@@ -105,7 +108,7 @@ export default HomeScreen = ({ navigation }) => {
                 height: 170,
                 width: 170,
                 borderColor: "white",
-                backgroundColor: "orange",
+                backgroundColor: "#f8b93a",
                 borderWidth: 3,
                 alignItems: "center",
                 justifyContent: "center"
@@ -133,7 +136,7 @@ export default HomeScreen = ({ navigation }) => {
                 height: 170,
                 width: 170,
                 borderColor: "white",
-                backgroundColor: "orange",
+                backgroundColor: "#f8b93a",
                 borderWidth: 3,
                 alignItems: "center",
                 justifyContent: "center"
@@ -170,7 +173,7 @@ export default HomeScreen = ({ navigation }) => {
                 height: 170,
                 width: 170,
                 borderColor: "white",
-                backgroundColor: "orange",
+                backgroundColor: "#f8b93a",
                 borderWidth: 3,
                 alignItems: "center",
                 justifyContent: "center"
@@ -198,7 +201,7 @@ export default HomeScreen = ({ navigation }) => {
                 height: 170,
                 width: 170,
                 borderColor: "white",
-                backgroundColor: "orange",
+                backgroundColor: "#f8b93a",
                 borderWidth: 3,
                 alignItems: "center",
                 justifyContent: "center"

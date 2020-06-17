@@ -73,7 +73,7 @@ export default class ProfileScreen extends React.Component {
   }
 
   async _loadFontsAsync() {
-    await Font.loadAsync({ Lato: require("../assets/fonts/Lato-Thin.ttf") });
+    await Font.loadAsync({ Lato: require("../assets/fonts/Lato-Regular.ttf") });
     this.setState({ fontLoaded: true });
   }
 
